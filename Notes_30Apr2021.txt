@@ -1,0 +1,61 @@
+Lombork
+	i) logging
+	ii) code generation
+		take care of getters and setters
+
+when you create a Spring boot application using spring initializer, 
+	you can choose to add lombork dependency
+
+use @Data annotion (for getter, setters, toString)
+
+
+
+Lombork appenders
+
+
+create a file 
+	logback.xml
+inside the src/main/resources folder
+
+inside logback.xml
+<configuration>
+  <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+    <encoder>
+      <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+    </encoder>
+  </appender>
+
+  <logger name="deng" level="DEBUG"/>
+
+  <root level="INFO">
+    <appender-ref ref="STDOUT" />
+  </root>
+</configuration>
+
+
+
+
+
+
+
+<configuration>
+  <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+    <encoder>
+      <pattern>%d{dd-MMM-yyyy HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+    </encoder>
+  </appender>
+
+ <appender name="FILE" class="ch.qos.logback.core.FileAppender">
+    <file>myApp1.log</file>
+
+    <encoder>
+      <pattern>%date %level [%thread] %logger{10} [%file:%line] %msg%n</pattern>
+    </encoder>
+  </appender>
+  <logger name="deng" level="DEBUG"/>
+
+  <root level="INFO">
+    <appender-ref ref="STDOUT" />
+    <appender-ref ref="FILE" />
+  </root>
+</configuration>

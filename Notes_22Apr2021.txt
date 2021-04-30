@@ -1,0 +1,112 @@
+Bootstrap
+---------
+	HTML
+	CSS
+	Javascript
+
+	Jquery
+
+
+<html>
+<head>
+<script>
+        function fn1()
+        {
+            alert('hi ');
+        }
+    </script>
+</head>
+<body onload="fn1()">
+    Hello world
+</body>
+</html>
+
+
+
+why we jquery?
+	we know javascript.
+	imagine, we create a function fn1() and we call it in some event.
+	If someone else creates lot of such functions and give it to you as a "jquery.js"
+
+	Lot of js code.
+
+	That is what jquery.
+
+i) we can download jquery.js 
+	and use it in our project folder
+
+ii) refer to existing js file using	Jquery CDN
+	<script src="https://code.jquery.com/jquery-3.6.0.js">
+	</script>
+
+jquery has its new syntax 
+
+	function fn1(){
+		alert('normal method');
+	}
+
+	$(document).ready(fn1);
+
+
+   $(document).ready(function(){
+            alert('this is lambda function')
+        });
+
+
+
+  $(document).ready(()=>{
+            alert('this is lambda... function')
+        });
+
+
+
+document.getElementById("div1").innerText="THis is the output";		//the message is displed inside the div
+
+
+document.getElementById("txt1").value=20;
+
+
+innerText			displayes the message as a text		<a href="">	
+innerHTML			displayes the output of html after processing
+
+
+-----------------------------------------
+Bootstrap is a project done by someone to help us in creating responsive web pages
+that project they have done includes
+	bootstrap.css
+	bootstrap.js			this is jquery code. if jquery code should work, we should use jquery.js
+	jquery.js
+
+these 3 files must be downloaded (or)
+	referred by CDN url
+
+If you want to use bootstrap in your project, 
+	bootstrap.css
+	bootstrap.js			
+	jquery.js
+
+
+these 3 files to be added to your project folder	(or)
+	use CDN
+
+Lab setup:
+----------
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+add these 3 lines to your html file (preferrably HEAD)
+
+
+Bootstrap typography:
+---------------------
+	the moment we apply bootstrap into a web page, 
+	the default
+		font
+		size
+		style
+		align
+		
+	many things are determined by the bootstrap	(even if we did not apply any class)
+
+A bootstrap page is divided into 12 columns

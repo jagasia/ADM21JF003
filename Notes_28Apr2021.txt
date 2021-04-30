@@ -1,0 +1,120 @@
+Query Methods - 		(is to filter , sort, in simple terms criteria)
+	Search by containing text, 
+	sorting, 
+	filter with starting text, 
+	fetch between dates, 
+	greater than or  lesser than, 
+	top
+
+Relationships
+	@ManyToOne, 
+	@JoinColumn, 
+	@OneToMany, 
+	FetchType.EAGER, 
+	FetchType.LAZY, 
+	@ManyToMany, 
+	@JoinTable, 
+	mappedBy
+
+
+
+1) Hibernate	f/w
+	an java app	(console or web or any type of java application)
+2) Hibernate for Spring
+	spring orm
+	hibernate core
+3) JPA repository
+	@Query
+
+we don't use hbm xml file now. we use annotation in our demo
+
+
+Customer
+	customerId, firstName, lastName, phone
+
+Product
+	productId, name, description, price, manufactureDate, expiryDate
+Order
+	orderId, orderDate, productId, customerId, quantity
+
+We are not creating the tables. Hibernate is going to create the table. 
+1) How we inform hibernate that 
+	productId
+	customerId
+		are foreign keys
+
+2) in object oriented programming, we do aggregation and composition
+
+	class Order
+	{
+		private Long orderId;
+		private Date orderDate;
+		@OneToOne			//relationship annotation ends with One. So it will create a column
+		private Product product;
+		@OneToOne
+		private Customer customer;
+		private Integer quantity;
+	}
+
+
+3) 	class Customer
+	{
+		//customerId, firstName, lastName, phone
+		private Long customerId;
+		private String firstName;
+		private String lastName;
+		private String phone;
+		@OneToMany()		//any relationship ends with many, f/w will create a new table
+		private List<Order> orderList;	
+	}
+
+@OneToOne
+@OneToMany
+@ManyToOne
+@ManyToMany
+
+
+First of all, why did we create an Entity called Sales??????
+The relationship was actually between 
+	Customer	and 		Product
+since the relationship was M-M
+	the relationship became an Entity	(SALES)
+	between customer and sales 
+	then 	product and sales
+
+	a customer place many orders
+	a product ordered many times
+
+
+
+<dependencies>
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-core</artifactId>
+			<version>5.2.17.Final</version>
+			<scope>compile</scope>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>5.1.47</version>
+		</dependency>
+
+
+
+
+
+RElationship between employee and department
+
+Many Employee to One Department
+
+	Many to one
+		one will join many
+		Department is one. So department id will become a column in employee table
+
+
+
+When does the list of employees are loaded into the dept object?
+	
