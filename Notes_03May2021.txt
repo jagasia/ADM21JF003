@@ -1,0 +1,62 @@
+1) download sonarqube from
+	https://www.sonarqube.org/
+2) unzip to a known folder (softwares folder)
+
+Another important thing:
+	sonarqube works only for Java 11 or above
+we were using java 8. 
+	So download java (jdk) 11 also and install it (better uninstall jdk 1.8)
+	after installing java 11
+		set environment variables(to the jdk bin folder)
+			JAVA_HOME
+			Path	(append the java jdk bin folder to path variable)
+
+	
+1) we need to start sonar server.
+	sonar home folder \ bin	\	windows folder\
+		StartSonar.bat
+2) we need to login to 
+	localhost:9000
+
+	it will ask username and password
+		username:		admin
+		password:		admin
+
+--------------------------------------------------------------
+
+Let us create a maven project or open an existing maven project and analyse the code quality using sonarqube
+
+we need to add some plugins to our pom.xml
+
+
+<build>
+		<plugins>
+			<plugin>
+				<groupId>org.sonarsource.scanner.maven</groupId>
+				<artifactId>sonar-maven-plugin</artifactId>
+				<version>3.7.0.1746</version>
+			</plugin>
+
+			<plugin>
+				<groupId>org.jacoco</groupId>
+				<artifactId>jacoco-maven-plugin</artifactId>
+				<version>0.8.1</version>
+			</plugin>
+
+		</plugins>
+	</build>
+
+these plugins are added to the pom.xml now.
+
+1) right click project 
+	run as
+		maven build
+	goals:
+		clean org.jacoco:jacoco-maven-plugin:prepare-agent install
+
+
+2) in sonarqube portal 	(localhost:9000)
+	create a project and generate the token 	(choose maven and copy the goals, make it single line remove \)
+	build the project with the goals
+
+3) Now you can see the project in sonarqube
