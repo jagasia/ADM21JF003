@@ -1,0 +1,424 @@
+Are you able to use sonarqube to analyze your code?
+	analyze what type of code. we have seen a java code being analyzed.
+
+what type of analysis we do using sonarqube?
+	bugs			potential bugs
+	code smells		improper coding standards
+	code coverage		lack of unit testing
+	cyclomatic complexity	duplicate code
+		if(true)
+			return something;
+		else
+			return somethingelse;
+
+	spaghetti design	insufficient or too many comments
+	code debt		time required to repair this code
+
+
+
+
+
+
+System.out.println
+	we can use logger instead of syso
+
+	syso is specific to a particular type of project. 		Console application
+	suppose, if this class and method is used in a web application, then syso is irrelavent
+
+
+GoF	Gang of Four
+
+principle:		Open to extension, Close to modification
+			ready to extend existing classes. Create sub classes, then ok
+			does not encourage modification		
+
+Design Patterns - Creational	Singleton, Factory, Abstract Factory, Builder
+Design Patterns - Structural
+Design Patterns - Behavioral
+
+
+
+Singleton
+		where did you find this singleton earlier?
+		Singleton	vs	Prototype
+
+what is singleton?
+	only 1 instance available for a class, then that class is a singleton class
+	not that we create one instance. that 1 instance is available. we can get instance
+
+example for singleton class?
+	Runtime class
+	we cannot create an object of runtime. we can only get instance of runtime
+
+
+To make a class as singleton
+	1) restrict from creating objects		(make the constructor, private)
+	2) lets create an object inside the class itself	(this is the single instance)
+	3) make this object available using a method
+
+
+class Star
+{
+	//how to make this a singleton class
+	private static Star star=new Star();
+	private Star()
+	{
+		
+	}
+	public static Star getStar()
+	{
+		return star;
+	}
+	public void display()
+	{
+		System.out.println("Star class display method is called");
+	}
+}
+
+
+Creational pattern
+------------------
+	decides how the instance of a class is created
+	
+Factory
+	in hibernate, hope you have seen	SessionFactory
+	
+	session=sf.openSession();
+	session=new Session();			NO
+
+
+	ApplicationContext ctx=new ClassPathXMLApplicationContext();
+
+--------------------------SOLID principles-----------------
+
+Single Responsibility Principle (SRP);
+Open Closed Principle (OCP);
+Liskov Substitution Principle (LSP);
+Interface Segregation Principle (ISP);
+Dependency Inversion Principle (DIP);
+
+
+
+Single Responsibility Principle 
+	servlets and JSP
+
+<FORM action="student">
+	ID:.....
+	First Namer:...........
+	.....
+	ADD	UPDATE	DELETE	FIND		
+</FORM>
+
+
+
+
+
+ALL THESE SUBMIT buttons post the form to a "single" servlet.
+
+	in the servlet, we find which button was clicked
+		//for finding a student, only student ID is enough. But there will be 
+		request.getParameter("ID");
+		requ.....	("FIRSTNAME");			//everything	 unnecessarily
+
+	switch(op)
+	{
+		case "ADD":
+			///code to add a student
+		break;
+		
+	}
+
+
+this is a poor coding.	
+	Because, a single servlet is handling multiple responsibilities
+
+
+same scenario in our MVC project:
+
+class StudentController
+{
+	
+	public void add(){}
+	public void update(){}
+}
+
+
+here, in MVC, each method is responsible for only 1 task
+
+
+
+ opened for extensibility, but closed for modification.
+
+
+class Student
+{
+	private int id;
+	private String firstName;
+	private Date dob;
+	
+	public Student(){}
+	public Student(int id, String firstName, Date dob)
+	{}
+
+	public Student(int id, String firstName, String dob)
+	{
+		SimpleDateFormat		that converts String into date
+	}
+	public Student(String firstName, String dob){}
+}
+
+
+
+remember, i did not modify the constructor which already was there. I just added another constructor.
+
+because, already somebody would have used the existing constructor. if i modify, then their code will be affected
+
+
+awt
+	Button
+
+	JButton			(remember they did not modify Button class. They introduced a new class)
+
+
+Browser
+	has	title bar
+		menu bar
+		status bar
+		tool bar
+
+
+since, in c++ multiple inheritance
+
+Browser : title, menu, status, tool
+
+Browser is a kind of title bar?			NEVER
+
+this is a poor abstraction
+
+
+Browser	vs Title		should be composition relationship	because, title bar cannot exist independently
+	
+	aggregation
+
+
+Inheritance
+Aggregation
+Composition
+Utilization
+
+if these relationships are wrongly implemented then it is suggested to do LSP review
+
+Functional Interface	
+	only 1 abstract method				Runnable
+Marker Interface
+	no abstract methods		ex:		Serializable
+
+interface Person
+{
+	void speak();				//this is an abstract method
+	default void walk()
+	{
+		syso	person walks		//this is not an abstract method
+	}
+	static void run()
+	{
+		syso person runs		//this is not an abstract method
+	}
+}
+
+but Person is a functional interface		because, there is only 1 abstract method
+
+
+we should not force anybody to implement methods which they DO NOT NEED
+	better to create interfaces with minimum abstract methods
+
+	so that they have choice or choose right combination of interfaces
+
+
+
+EJB
+	Session bean there were 7 methods to override
+		providing only empty implementations of these 7 methods
+		
+	passivate(){}
+	activate(){}
+	destroy(){}
+	init(){}
+
+
+swing GUI 
+	ActionListener
+
+	WindowAdapters			a class that provides empty implementation
+
+
+Repo		is an interface
+
+
+autowiring
+	qualifier
+
+
+dao
+	jdbc template		dataSource
+	hibernate template	dataSource
+
+
+
+	JDBC template
+		datasource			//interface
+
+DriverManagerDataSource				implementation of Data source
+
+
+class A
+{
+	B b;			B is a class, then A and B are tightly coupled
+}
+
+
+class Car
+{
+	Audio a;		if Audio is a class, then your car always comes with a specific audio system.
+}
+
+
+class Car
+{
+	Audio a;		if audio is an interface. You have choice
+}
+
+
+IoC			the car manufacturer, give you the ownership or choice to decide which implementation you want
+
+
+
+
+SRP, OCP, DIP, LSP, ISP
+SRP, OCP, LSP, ISP, DIP		SOLID
+
+
+
+MVC
+DAO
+VO
+
+
+1. Enhances code readability
+
+Design patterns help to speed up software development by providing tested development paradigms. Software design involves considering small issues that might become visible later during the implementation process. Reusable design patterns help to correct subtle problems and enhance code readability.
+
+2. Robust
+
+Besides improving code readability, design patterns allow architects to communicate clearly with well-defined names for enhancing software interaction. Design patterns are often improved in the long run to suit specific demands, making them robust.
+
+3. Solutions to specific problems
+
+Often, many people only know how to use specific software tools to solve certain problems. Although design patterns offer general solutions to aid in the implementation process, some techniques may be tailored to suit specific needs.
+
+4. Simplify the coding process
+
+Since it is difficult to understand C# or Java without prior knowledge of web development and object oriented design, you need to familiarize yourself with basic design patterns. For instance, if you have done a course in web development it will be easier for you to divide a task into pieces, each with its own specific responsibilities.
+
+5. Enhances software development
+
+Besides giving you the knowledge on how to handle development tools, design patterns help to enhance software reusability and development. In other words, a design pattern is the main component in software development. Better understanding of how design patterns relate to each other will help enhance software development.
+
+While design patterns attempt to improve standardized practices in software development, architects argue that certain patterns often lead to code duplication.
+
+Design Patterns - Creational
+Design Patterns - Structural
+Design Patterns - Behavioral
+
+
+Creational
+	Singleton
+	Factory
+		pattern solves the issues related to creation of the objects
+		instead of allowing users to create objects, they are suggested to get instances from the Factory
+
+	AbstractFactory
+		
+
+HibernateTemplate
+	SessionFactory
+
+
+i have choice
+	LocalSessionFactory		is a kind of SessionFactory
+
+
+
+Interface
+	separates the definition of a class from its implementation
+
+DaoImpl
+	and extracted an interface from the class
+
+
+
+ctx.buildSessionFactory
+
+
+
+WindowsListener		interface
+
+
+Adapter, Decorator, Bridge, Façade
+
+
+Adapter: Adapts one interface for a class into one that a client expects
+Bridge: Decouple an abstraction from its implementation so that the two can vary independently
+Composite: A tree structure of objects where every object has the same interface
+Decorator : Add additional functionality to a class at runtime where subclassing would result in an exponential rise of new classes
+Facade: Create a simplified interface of an existing interface to ease usage for common tasks
+Flyweight: A high quantity of objects share a common properties object to save space
+Proxy: A class functioning as an interface to another thing
+
+
+
+Design Patterns - 
+Behavioral	
+	Chain of Responsibility, 
+	Command,  
+	Mediator, 
+	Observer, 
+	Iterator, 
+	Strategy, 
+	State
+
+
+Chain of Responsibility		(controller)
+-----------------------
+In this the request we pass goes through a chain of handlers.
+And the handlers decides to process the request or pass it.
+
+Command			(controller)
+----------
+It transforms the request into stand alone object which we can pass as method arguments.	
+	what happens when an exception occurs?????
+		throw new ArithmeticException("Description of the exception occurred");
+
+Mediator		(controller)
+---------
+It is uses to reduce the dependency between objects. So that the objects cannot directly communicate with eachother and for communication they requires a mediator object.
+
+Observer		(view)			
+---------
+It is used to notify other objects about any events that happen to the object.
+
+Iterator			iterators
+--------
+It helps in traversing elements of collection without giving the traversing representation.
+
+Strategy			Collections.sort		works on another object (collection)	(Comparable)
+---------
+It defines a set of algorithms which are put in seperate class so that we can use their objects interchangeable and they all implement the Strategy interface.
+
+State
+------
+It allows an object to alter its behavior when internal state changes. It is like the object has changed its class.
+
+lambda
+stream API			works on collections		filter		sort		group
+
