@@ -1,0 +1,99 @@
+To create objects of a kind following a pattern
+
+Creational design pattern, no tight coupling
+
+Factory of objects created using factory design pattern
+
+Realtime instance of significance of one object instance in memory, 
+Eg: single DB connection object; 
+how to achieve it using Private Static Constructor, thread safety
+
+
+--------
+7/5/21
+--------
+
+Build complex objects using simple objects
+
+Organizing different classes and objects to form larger structures
+
+Benefits, Target Interface, Adapter class, Adaptee class, Client
+
+1)	Creational pattern
+	i) Singleton			
+	ii) Prototype		cloning objects rather than creating new object.
+	iii) Factory
+	iv) Abstract Factory
+	v) Builder
+
+
+Factory:		(Factory method pattern)
+--------
+users do not create objects. They obtain objects from Factory class.
+
+Factory class
+	has a method that accepts input to decide what type of object to be returned.
+	How a method can return different type of objects as return type?	what should be the return type?
+
+
+class MyFactory
+{
+	???	getInstance(String type)
+	{
+		if(...)
+			return atype
+		else
+			return btype
+	}
+}
+
+Interface	or 	Abstract class
+	if the return type of the method is an interface, 
+		then we can return an object of any class that implements that interface
+
+
+Hands on:
+	In OLX	(is a C2C)portal, a consumer can sell a product. a consumer can buy a product. 
+
+	interface Consumer
+	class Buyer	implements Consumer
+	class Seller	implements Consume
+	Factory class	Olx
+		method:	Consumer getUser(String type)
+			returns an instance of Consumer based on the user type as argument (seller or buyer)
+		
+	FactoryPatternDemo.java
+		main method
+			get input from the user (type of consumer)	
+			and obtain the instance of the type from the Factory class called Olx
+
+
+-------------------------------------------------------------
+Abstract Factory Pattern
+--------------------------------
+
+
+	ctx.buildSessionFactory
+	sf.openSession
+
+
+
+Builder Pattern
+	Hands on:
+	--------
+	
+Furniture class	(abstract)
+
+Chair	class	extends Furniture
+Table	class 	extends Furniture
+
+OfficeChair	class	extends Chair
+DiningChair
+OfficeTable
+DiningTable	class	extends Table
+
+user can buy any number of furniture.
+
+All items to be added to one array list
+	what should be the array list type	<T>		Furniture		ArrayList<Furniture>
+
