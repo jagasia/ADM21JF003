@@ -1,0 +1,282 @@
+Stage 4
+	hope you got cloud access	(AWS login)
+
+1) AWS login check
+2) Spring REST
+	and spring boot CLI
+
+
+AWS guideline:
+1) use only your credentials
+2) always delete the applications created in AWS (after demonstration or practise)
+3) always name the env or app in the format
+	BatchCode-YourName-AppName
+
+
+go to the URL
+12 digit number is automatically filled (by the url)0
+
+only enter the username and password (yours only)
+
+search for services
+	elastic beanstalk
+
+
+JF003_Jag_demo1
+
+
+
+environment will be created
+	in env, we deploy application	(now, sample application aws provided will be deployed)
+
+How Spring Boot is different from Spring?
+-----------------------------------------
+	Spring boot has embedded tomcat server
+	Spring boot recommends convention over configuration
+		suppose, we create spring mvc project,
+			we do lot of configuration, what config?
+				i) specify where jsp files are present	(prefix and suffix)
+				ii) we specify the base package location where controllers are present
+				iii) we specify the hibernate config details in xml file or annotation config
+			in spring boot,
+			we follow the conventions instead of configuration
+				follow where to put the jsp files, where to put the controller classes
+				convention means, guideline
+
+	Spring boot provides the easiest way to create
+			MVC project
+			Rest API
+
+RESTful Web services
+	jersey f/w?		This was popularly used to create restful web services
+				REST api acts as a web interface that allows front ends from anywhere in the world to 				access back end code
+
+				java method:		addEmployee()
+				public Integer addEmployee(Employee employee){}
+
+			this method accepts what?		returns what?
+			accepts Employee object			returns Integer
+
+		there are lot of issues in this when it comes to RESTful web services.
+		why?	this java method, will be called from any program developed in any language.
+			a web service can be developed in any language. and can be accessed from any language.
+
+		
+
+RESTful web services
+	spring
+
+
+Restful web services
+	spring boot
+
+
+the content negotiation is automatic in spring boot
+
+history of web service
+	web service was introduced in 2001 onwards		Service Oriented Architecture
+
+	if there is a program that converts Dollar into Rupee
+	this program should be in a server and gets updated every day because, the formula changes often
+
+	hence, the program is not given to clients as product. but as service
+
+	diff between product and service
+		Redmi vs Airtel
+
+
+SOA is very good approach to share code through internet
+
+but 2001, webservices were implemented using 
+		HTTP 
+		SOAP
+		XML
+
+	we call them as SOAP web service
+
+XML was considered as the data interchange format
+
+if you know how to create SOAP web service in java
+	
+
+SOAP web service		vs		RESTful web service
+
+	SOAP is not flexible in data format		it supports only XML format
+
+REST
+	supports 
+		XML
+		JSON			JavaScript Object Notation
+		text
+
+	multiple data formats supported by REST
+
+
+{"username":"rama","password","ravi"}
+
+javascrip arrays
+	[{"username":"rama","password","ravi"}, {"username":"rama","password","ravi"}, {"username":"rama","password","ravi"}]
+
+
+
+Spring initializr, 
+	https://start.spring.io 
+
+@SpringBootApplication, SpringApplication.run()
+
+
+
+Spring  Boot CLI
+
+	lets install spring boot CLI
+
+https://repo.spring.io/release/org/springframework/boot/spring-boot-cli/2.5.0/
+
+for windows, click:		spring-boot-cli-2.5.0-bin.zip
+
+once downloaded, unzip to a known folder
+
+in that folder, go to bin folder
+copy that location 
+	ex:
+		D:\Softwares\spring-boot-cli-2.5.0-bin\spring-2.5.0\bin
+
+and append this path to the "path" environment variable
+
+now check in a new cmd prompt
+	spring --version
+
+
+Test application:
+
+create a file in a known location:
+	MyDemo.groovy
+
+@RestController
+public class MyDemo
+{
+	@GetMapping("/")
+	public String home()
+	{	
+		return "Hello world by JF003 batch....";
+	}
+}
+
+this is groovy script		(not java)
+
+go to cmd prompt to that location where this groovy file is present
+
+spring run MyDemo.groovy
+
+check the port number and go to browser
+ex:
+	localhost:8080
+
+
+
+Makes Java development easy, 
+avoids tedious development steps, 
+reduces development time, 
+avoids writing boilerplate code, 
+provides embedded tomcat server, 
+avoid XML configuration
+
+
+Spring configuration xml, 			applicationContext.xml			bean.xml
+	allows us to configure beans		@Component
+		what is the difference between		@Component	and 	@Bean
+
+	@Bean annotation is used only for methods
+	@Component annotation is used for classes
+
+	In a configuration class,
+		we can create lot of methods with @Bean annotation compared to a bean.xml file having lot <bean> tags
+
+		@Bean
+		public Employee emp1(){		}
+		
+		this is similar to
+		<bean id="emp1" class="com.cts.hr.model.Employee"></bean>
+
+	<constructor-arg> 	vs	<property>
+
+		when we use <constructor-arg>	then arg constructor must be present in that class
+
+		so that it will use, that arg cons to inject the dependencies
+
+		when we use <property> 		then no arg constructor must be present in that class
+		and setter methods are used to inject the dependencies
+
+		ClassPathXmlApplicationContext
+
+		why they always use this?
+
+		whenever we use annotations like @Component, @Configuration
+		we have to use AnnotationConfigApplicationContext	
+
+			ApplicationContext ctx=new AnnotationConfigApplicationContext("applicationContext.java");
+			ApplicationContext ctx=new ClassPathXmlApplicationContext("applicationContext.xml")
+
+AnnotationConfigApplicationContext ctx=new AnnotationConfigApplicationContext();		//no config file
+ctx.scan("com.cts");
+ctx.refresh();
+		in this way, we dont require a configuration class 
+
+
+what is singleton and prototype?	where is it observed?
+		
+whenever a bean is configured as 
+	<bean>
+	it is by default, a singleton loading
+
+	we can change it to prototype using 	scope attribute
+
+	<bean id="" class="" scope="prototype"></bean>
+
+
+spring xml schema 
+spring-beans.xsd, 
+<bean>, 
+id, 
+class, 
+<constructor-arg>, 
+<property>, 
+name, value, 
+ClassPathXmlApplicationContext, 
+ApplicationContext, 
+context.getBean(), 
+singleton scope, 
+prototype scope
+
+
+
+1) spring boot project using spring initializer
+2) entity classes
+3) jpa repository
+4) service
+5) controller
+
+
+CLI
+
+How we can add dependencies
+	starter dependencies
+
+	what are starter dependencies?
+
+	they combine lot of dependencies together
+
+
+@Grab
+	this annotation is used in groovy scripts to include dependencies
+
+	Thymeleaf
+		f/w allows us to write scripts on HTML file		(not javascript)
+		we can write 
+			if 
+			for loop
+			
+
+		similar to JSTL 
+
+

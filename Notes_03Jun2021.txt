@@ -1,0 +1,139 @@
+What is auto configuration?
+	before spring boot, auto configuration was implemented using
+
+	@EnableAutoConfiguration
+
+	this annotation was used in @Configuration class
+
+	@Component
+	@Configuration
+	@ComponentScan
+	@Value
+	@Autowired
+	@Bean
+	@Entity
+	@Repository
+	@Service
+
+
+demo-2-1
+	into
+		Demo21Application.java
+
+
+@SpringBootApplication
+	is a combination of 
+		@SpringBootConfiguration	(which includes @EnableAutoConfiguration)
+	
+
+
+
+if i create a component in base package, then it is automatically scanned
+
+
+
+Employee is a bean		
+	either use
+		@Component annotation over the class
+		<bean> in xml config file
+
+
+But where is the @ComponentScan					?????
+
+
+@Bean is used on methods
+@Component is used on class
+
+	both of them define a bean		equiv to 		<bean>		in xml config file
+
+
+
+what is the need for Auto configuration	(in normal spring application)
+	based on the dependencies, the spring container will automatically understand the configuration
+	not the config values		
+		ofcourse we have to provide the config values
+			url
+			username
+			password
+			driver
+
+
+
+spring jdbc
+hibernate template
+
+in xml config file
+	 <bean id="dmds" class="">
+			url
+			username
+			password
+			driver
+	</bean>
+
+
+
+alternatively
+	we can also define the same in 
+
+	@Configuration
+
+
+
+when we use @EnableAutoConfiguration
+	we are not  doing either of the above
+
+	but still we need to provide the values
+
+	application.properties
+
+how we access the values from properties file?
+
+
+
+
+
+@EnableAutoConfiguration
+
+how we can create a spring boot app
+	and create
+		entity class
+		repo
+		service
+		controller
+
+
+i am not configuring db properties in application.properties file
+
+	DataSource
+		should not be configured from application.properties
+
+we have to exclude this class and methods in @EnableAutoConfiguration
+
+
+
+When we added spring boot started data jpa dependency in our pom.xml,
+	we found that spring boot auto configuration looking for connection information in the application.properties
+
+so we got error.
+	we can stop auto configuration from checking or configuring the data jpa
+	by using exclude
+
+	@SpringBootApplication(exclude = {
+    DataSourceAutoConfiguration.class, 
+    DataSourceTransactionManagerAutoConfiguration.class, 
+    HibernateJpaAutoConfiguration.class
+})
+
+
+
+
+1) Understand @EnableAutoConfiguration
+2) understand @SpringBootConfiguration
+3) understand @SpringBootApplication
+4) what is the benefit of @EnableAutoConfiguration
+
+	understand the purpose of exclude	(example, use data jpa dependency in pom.xml and see error saying that db is not configured)
+	use exclude to stop auto config from that
+
+
+5) custom auto configuration
