@@ -1,0 +1,127 @@
+Logging
+	in spring boot application
+
+store the log entries in a log file
+	need to create a rolling file. 	
+		the file size of log file is around 10 MB.
+		if the size grows more than that, another file will be created
+
+		we can specify the file naming convention
+
+	this 10 MB is for the same day
+
+logging.file.name=jag.log
+logging.pattern.rolling-file-name=MyApp-%d{yyyy-MM-dd}.%i.log
+
+logging.logback.rollingpolicy.file-name-pattern=MyApp-%d{yyyy-MM-dd}.%i.log
+
+
+
+@RestController
+public class LogDemo2Application {
+
+	private static final Logger logger=LoggerFactory.getLogger(LogDemo2Application.class);
+	
+	@GetMapping("/")
+	public String home()
+	{
+		for(int i=0;i<Integer.MAX_VALUE;i++)
+			logger.warn("This is a log entry created by Jag..."+i);
+		return "Hi world";
+	}
+
+
+------------------------
+
+Jersey f/w REST api
+
+restful web service
+
+	today we will create methods, that
+		consume
+		produce
+			JSON
+
+
+
+
+
+GET 	mapping is used for returning values to the client
+POST	mapping is used for adding entities to the repo
+PUT	mapping is used for updating 
+DELETE	mapping is used for deleting
+PATCH	mapping is used for modifying a subset of the entity		not all attributes
+
+
+Task:
+	Create a jersey RESTful web service, that will do the following:
+	1) return all branches			GET
+	2) return a branch based on bid		GET		with @PathParam
+	3) add Branch				POST
+	4) update Branch			PUT
+	5) delete Branch			DELETE		with @PathParam
+
+
+dependencies:
+	<dependency>
+			<groupId>org.glassfish.jersey.containers</groupId>
+			<artifactId>jersey-container-servlet</artifactId>
+			<version>2.29.1</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.glassfish.jersey.inject</groupId>
+			<artifactId>jersey-hk2</artifactId>
+			<version>2.29.1</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.glassfish.jersey.media</groupId>
+			<artifactId>jersey-media-json-jackson</artifactId>
+			<version>2.29.1</version>
+		</dependency>
+
+		<dependency>
+			<groupId>asm</groupId>
+			<artifactId>asm</artifactId>
+			<version>3.1</version>
+		</dependency>
+
+
+Kindly add other dependencies if required		(ex: mysql connector)
+
+in web.xml
+----------
+<servlet>
+        <servlet-name>Jersey REST Service</servlet-name>
+        <servlet-class>org.glassfish.jersey.servlet.ServletContainer</servlet-class>
+        <init-param>
+            <param-name>jersey.config.server.provider.packages</param-name>
+            <param-value>com.cts.jag</param-value>
+        </init-param>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Jersey REST Service</servlet-name>
+        <url-pattern>/rest/*</url-pattern>
+    </servlet-mapping>
+
+ensure that you create Controller classes under the package specified in above <param-value>
+
+
+
+
+
+
+a fake api:
+-----------
+
+https://jsonplaceholder.typicode.com/todos
+
+GET		
+	https://jsonplaceholder.typicode.com/todos
+	without path param,		all objects
+GET		
+	https://jsonplaceholder.typicode.com/todos/1
+		only 1 object
+
