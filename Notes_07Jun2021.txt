@@ -243,3 +243,57 @@ Task:
 			if "hasErrors" then redirect to same page
 
 	display the errors in red color in form
+
+
+
+
+@Size
+@Min
+@Max
+@Pattern
+@Email
+@NotNull
+@NotBlank
+
+
+Spring MVC forms validation
+	is not client side validataion.
+
+	This is additional layer of validation provided by the controller.
+
+
+@JsonIgnore		
+	private byte[] pic;		when a java object is translated into JSON string, ignore this field
+
+@JsonFormat
+	Date dateOfJoining;
+
+what should be the format of this date when this is converted into a json string
+
+why this is significant?
+
+	in entity class, there is a date field
+
+if we store the date in Oracle
+	dd-MMM-yy
+
+in mysql
+	yyyy-MM-dd
+
+when the java object is converted into json string, how this date should be transformed
+
+by default,
+	when a java object is converted into json string, the date inside the object is translated into long
+	similar to 		dt.getTime()		returns a long value
+
+
+Task:
+	
+
+The same mvc configurations that we did in XML files,
+	we should be able to do in Annotations
+
+	@Configuration
+	@ComponentScan
+		@Bean
+			
