@@ -1,0 +1,245 @@
+What should we use in our project?
+	Controller		(or)
+	RestController
+
+If it is RestController, then what is the front end?
+	JSP or HTML?		(because, Angular will be preferred front end for Rest back end)
+
+If it is Controller, then we are creating an MVC project 	
+
+if we are using 
+	Angular front end
+then 
+	Spring boot REST controller is suitable
+
+		rest controller provides each method with an url
+		does not do any redirection or return URL or validation etc
+
+if we are using
+	JSP front end
+then
+	we are doing Spring boot MVC with Controller
+		we can do redirection or return URL or validation etc
+
+
+
+
+we create a jersey RESTful web service in the last session
+	GET
+	POST
+	PUT
+	DELETE
+
+
+localhost:8080/projectname/employee/{id}			id is the @PathVariable	(spring)
+								id is the @PathParam	(jersey)
+
+	@PathParam		GET /books/{num}
+	@QueryParam		GET /books?num=5
+	@FormParam	
+
+
+https://docs.jboss.org/resteasy/docs/1.0.2.GA/userguide/html/index.html
+	this tutorial contains the complete list of variables used in JAX RS with example
+
+
+@RequestMapping(method="GET")
+
+Validations
+-----------
+	done in Spring MVC projects
+
+
+web.xml
+something-servlet.xml			(something is the name of the dispatcher servlet)
+
+How many of you have created a Spring MVC project	(which is not spring boot)
+
+Lets create a spring mvc project now!
+1) create a dynamic web project in eclipse/sts		check the web.xml file to create
+2) convert the project into a maven project
+	right click the project -> configure -> convert to maven project
+3) in pom.xml, add the spring mvc dependencies
+	<properties>
+		<spring.version>5.1.1.RELEASE</spring.version>
+	</properties>
+	<dependencies>
+<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		<dependency>  
+    <groupId>org.hibernate.validator</groupId>  
+    <artifactId>hibernate-validator</artifactId>  
+    <version>6.0.13.Final</version>  
+</dependency>  
+	</dependencies>
+	
+4) in web.xml
+	define the dispatcher servlet
+	<servlet>
+		<servlet-name>spring</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>spring</servlet-name>
+		<url-pattern>/</url-pattern>
+	</servlet-mapping>
+
+5) in the servlet-name		we have mentioned "spring" as name
+	so we should create a "spring-servlet.xml" file
+
+	in spring-servlet.xml
+
+		<?xml version="1.0" encoding="UTF-8"?>  
+<beans xmlns="http://www.springframework.org/schema/beans"  
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"   
+    xmlns:context="http://www.springframework.org/schema/context"  
+    xmlns:mvc="http://www.springframework.org/schema/mvc"  
+    xsi:schemaLocation="  
+        http://www.springframework.org/schema/beans  
+        http://www.springframework.org/schema/beans/spring-beans.xsd  
+        http://www.springframework.org/schema/context  
+        http://www.springframework.org/schema/context/spring-context.xsd  
+        http://www.springframework.org/schema/mvc  
+        http://www.springframework.org/schema/mvc/spring-mvc.xsd">  
+  
+    <!-- Provide support for component scanning -->  
+    <context:component-scan base-package="com.cts.jag" />  
+  
+    <!--Provide support for conversion, formatting and validation -->  
+    <mvc:annotation-driven/>  
+  <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/WEB-INF/jsp/" />
+		<property name="suffix" value=".jsp" />
+	</bean>
+</beans>
+
+6) since the prefix is /WEB-INF/jsp/
+	we have to create a folder "jsp" under 	WEB-INF
+
+	this is where our jsp files are kept
+
+7) in spring-servlet.xml
+	we have defined the base-package as "com.cts.jag"
+	hence, we create controllers in that or in its sub package
+
+8) create a MyController.java there
+	package com.cts.jag.controller;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+@Controller
+public class MyController {
+	
+	@RequestMapping("/")
+	public String home() {
+		return "index";
+	}
+}
+
+9) run the project as "Run on server"
+	enter the url in the browser
+		http://localhost:8080/spring-mvc-project-1/
+
+
+
+in this spring mvc project
+	we are going to do some CRUD operation on 
+		Branch entity
+
+validations 
+	like
+		id cannot be blank
+		name cannot be less than 5 characters
+		
+
+in Spring MVC framework
+	there is a custom tag library
+
+	form
+
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+
+
+----------------------------
+<dependencies>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.hibernate.validator</groupId>
+			<artifactId>hibernate-validator</artifactId>
+			<version>6.0.13.Final</version>
+		</dependency>
+	</dependencies>
+
+create a model / entity class
+create a jsp form 
+	using taglib form
+
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+<form:form modelAttribute="branch" action="add">
+	Id:
+	<form:input path="bid"/><form:errors path="bid" cssStyle="color:red" />
+	<br/>
+	Name:
+	<form:input path="bname"/><br/>
+	City:
+	<form:input path="bcity"/><br/>
+	<input type=submit />
+</form:form>
+</body>
+</html>
+
+public class Branch {
+	@Size(min = 1, message = "Branch ID cannot be blank")
+	private String bid;
+	private String bname;
+	private String bcity;
+
+
+@Controller
+public class BranchController {
+
+	@RequestMapping("/")
+	public ModelAndView home()
+	{
+		ModelAndView mv=new ModelAndView();
+		mv.addObject("branch",new Branch());
+		mv.setViewName("index");
+		return mv;
+	}
+	
+	@RequestMapping("/add")
+	public String addBranch(@Valid @ModelAttribute("branch") Branch branch, BindingResult br)
+	{
+		if(br.hasErrors())
+			return "index";
+		else
+			return "success";
+	}
+}
+
+
+Task:
+	apply the form validation rules to the entity class using annotations
+	in controller,
+		use BindingResult 
+			if "hasErrors" then redirect to same page
+
+	display the errors in red color in form
