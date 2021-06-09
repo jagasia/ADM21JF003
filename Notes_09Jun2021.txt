@@ -27,6 +27,10 @@ Example 2:
 		UserDetails
 		UserDetailsService
 
+		"jag","jag",new ArrayList<>()
+
+		based on username, we can find an object from the database
+		if that object's username, password matches with the user entered inputs, then auth is successful
 
 	1) configuration
 		a class with annotation @EnableWebSecurity
@@ -35,3 +39,91 @@ Example 2:
 		
 	2) service
 
+
+1) Why am i supposed to follow these patterns?
+	why not i create my own login validation code?
+
+	The REST API do not remember the session info across method calls
+	Controller?	no issues. 	I can use session object to remember the logged in user across method calls
+
+	but RestController is stateless. each method call is independent. 
+		ex: in one rest controller method, i give username and password. The login is successful, i store the 	user object in a session.
+	but when i call next method, session is not persistent.
+
+
+	so how can we manage session in rest controller?	
+		in our previous example2, we logged only once.
+
+		later, if we try to go to the same URL, it did not ask me login 
+
+		i restarted the server so that it forgotten me
+
+2) Single sign on
+	SSO
+
+	ex:
+		if we have an account in Google (gmail). Where and all we can use it?
+		so many apps, allow us to login using gmail account.	Am i correct?
+
+		How can we make our web application validate an user based on their gmail account?
+		1) we again, configure web security		@Configuration	
+		2) we are not going to create UserDetailsService		(this is done by gcp)
+
+
+		OAuth2	allows us to use Open Authentication
+		we generate the following in Google Cloud console
+		client id:
+		client secret key:
+
+
+Example 3:
+
+	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+		return new MyUser("jag", "jag", new ArrayList<>());
+	}
+
+	instead of returning a dummy user, 
+	return an object obtained from the database using the username entered by the user.
+
+	1) create a sub class MyUser for User		(spring security core userdetails)
+	2) create a repository for MyUser
+	3) autowire the repo in service
+			instead of returning a dummy user, 
+			return an object obtained from the database using the username entered by the user.
+
+
+
+
+What if the user access our REST api methods from Post Man?
+
+	in post man, he will not be prompted to enter the username and password
+
+	we have tested the url in browser, because it is a GET mapping
+	
+	but what will you do if it is a POST mapping (or PUT or DELETE)?
+
+	we will test the URL in the post man. But post man will not ask you to enter username and password
+
+	what to do?
+
+THe solution is:
+	to generate 
+		client id
+		client secret
+
+	these informations can be provided via headers or url in postman
+
+	
+
+Authentication
+		is a process of verifying the identity of the user
+		if you provide valid username and password, then you are authenticated
+Authorization
+		is a process of checking access to a resource by an authenticated user
+		the username and password provided is correct. 
+		but whether this user is allowed to access a resource or not.
+			authorities
+
+Activity:
+	how to access our rest api methods (using url) using Post Man
+	
