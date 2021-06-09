@@ -1,0 +1,37 @@
+Spring boot web security
+	
+Example 1:
+	we are going to create a spring boot application 
+	with a rest controller
+	/
+		hello world
+
+	while creating a spring boot application using spring initializer
+		we add dependencies
+			Spring Web
+			Spring security	
+
+	once this spring security is added, SecurityAutoConfiguration will be enabled
+
+@SpringBootApplication(exclude = SecurityAutoConfiguration.class)
+
+Example 2:
+	we are going to configure the security configuration
+	
+	lets create a configuration class
+
+	user object is always required in a login validation
+
+	spring boot security 		(spring security core)
+		User
+		UserDetails
+		UserDetailsService
+
+
+	1) configuration
+		a class with annotation @EnableWebSecurity
+		that extends WebSecurityConfigurerAdapter
+		and over the configure(AuthenticationManagerBuilder auth) method 
+		
+	2) service
+
