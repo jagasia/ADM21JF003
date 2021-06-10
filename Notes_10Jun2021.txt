@@ -1,0 +1,101 @@
+Microservices
+-------------
+	PaaS
+	Spring Cloud
+	Docker
+		today we will install Docker in our computer
+
+
+Why microservice?
+	Lets understand today's business process.
+	How can we book a movie ticket?
+		i) go to theatre. Stand in the queue (box office). Buy the ticket
+		ii) go to bookmyshow.com/ app and book ticket
+
+	i bet 99% of you prefer second choice
+
+	lets go in details to bookmyshow app:
+
+	i) bookmyshow app is a product of company A.
+		the theatres are owned by company B.
+		payment gateways are done by company C.
+		Account in a bank called company D.		Lot of choice of Banks and cards or app
+		
+	Atleast 4 companies involved in this 1 ticket booking itself.
+
+	bookmyshow is displaying the theatres.
+	that means, bookmyshow itself has a database of theatres. 
+	Or, it is accessing the database of theatres.		(some theatres also have online booking portal)
+
+	payment gateway does not have their own database of saving/current account.
+	they are accessing other bank's data
+
+	looking at all these scenarios, we understand one thing that
+	an application (app) is able to access other company's code.
+
+	how can we allow other apps to access our code?
+		create a REST api, share the URL to them	(looks so easy)
+		
+	before REST api, still this Enterprise Application Integration (EAI) was there
+	using SOAP. But soap exposes all the methods in the web services. rather than only providing a single method
+
+	REST API provides single URL for each method
+		micro service
+
+	lot of micro services can be deployed in a server.
+
+	this is where we need to address the problems 
+	the problems in deployment.
+
+	in server, i cannot expect all the infra/ s/w
+	
+	you have done a RESTful web service in your computer. how will you send this to me?
+
+	jar		or 		war
+
+	but clients' do not have infra or knowledge to do the steps 
+		if you provide war to them
+
+	in a computer, even if there is no java installed, we are going to deploye spring boot application and run that using browser or post man
+
+	How is it possible?
+		by providing a container which can provide Runtime Env for our application
+
+	ISO	wrt 	compact disk 
+		instead of having a cd for installation, we had ISO image for that.
+
+	similarly, a runtime environment can be cloned as an image
+
+That is called Docker.
+
+	we are going to use docker to run a spring boot app	(without even installing java in a computer)
+		we wont use eclipse also. just in cmd prompt, we can run an application provided by someone
+
+Download docker from
+	https://docs.docker.com/docker-for-windows/install/
+
+	install it
+
+
+
+now someone has uploaded a sping boot application in docker.
+	we are going to run that application directly using docker.
+
+	so we are not bothered about the necessary 
+		RDBMS installed
+		database, tables
+		java env, or dependency jars
+
+	nothing is required to be done in our computer. 
+	the app will run directly in docker (docker provides the env image)
+
+
+to upload / push our application into docker,
+	our project folder should contain a file	
+		Dockerfile
+
+
+Doctor
+	https://javatechonline.com/how-to-deploy-spring-boot-application-in-docker/
+Spring cloud
+	https://www.javatpoint.com/spring-cloud
