@@ -1,0 +1,89 @@
+Spring cloud
+	Cloud is a central storage, platform
+		PAAS
+		IAAS
+		SAAS
+
+	cloud is not only a place where we store information.
+	it also provides runtime env for running application
+	it provides env to develop apps 
+
+	what exactly we are going to do in Spring cloud?
+		we can do 
+			1) Eureka server and client
+			2) Feign client
+			3) Ribbon
+
+	one of the benefits of Spring cloud is to analyze the load balancing
+
+		that is what we are going to montior using Eureka server and client
+
+	why we choose cloud while we have developed spring boot rest application?
+		sometimes, take example, any service amazon or payment gateway or location service
+		any service		Rest api
+		
+		sometimes, there will be less payload. sometimes in peak hours, there will huge payload
+
+		so the scalability of the application is fine when our infra is capable of serving during peak hours
+
+
+		but in weekdays, even there is no client access, our huge infra is up.
+
+		scalability is not only able to scale to the increasing demands. 
+			it is the ability to scale to decreasing demands by de provisioning the unnecessary resources
+
+		Elasticity
+			how does it differ from scalability?
+			scalability is the ability to scale to increasing or decreasing demands using same infra
+			if the infra can be provisioned or deprovisioned as required, then it is elastic
+
+				
+	i am creating 2 projects now running simultaneously in 2 eclipse windows
+		1) eureka server
+		2) eureka client
+
+	i) server app is running in a specific port
+		a) add the dependency (eureka server) while creating project in spring initializer
+		b) server.port = 8761			(it is our choice. but commonly used port for eureka server)
+		c) annotation
+			@EnableEurekaServer		add this under @Configuration (@SpringBootApplication)
+		d) in application.properties file, add the following:
+			eureka.client.registerWithEureka = false
+			eureka.client.fetchRegistry = false
+			server.port = 8761
+
+
+
+here in eureka,
+	server
+		is used to monitor load
+	client
+		is the rest api
+
+
+Let us create a client app:		in a new eclipse workspace running parallely 
+	here we are creating a rest api
+
+	1) create a spring boot app using spring initializer
+		add dependencies
+			spring web
+			eureka	client
+	2) in application.properties
+		
+		server.port=8383
+		spring.application.name=account-service
+		eureka.instance.hostname=localhost
+		eureka.client.serviceUrl.defaultZone=http://localhost:8761/eureka/
+		server.context-path=/account
+
+	3) create a rest controller with getmapping methods
+		/
+			hello world
+
+	4) run the spring boot app
+
+	5) check the browser for localhost:8383/<<if any url>>
+
+	6) Now check localhost:8761
+
+		are you able to see your client app in this console?
