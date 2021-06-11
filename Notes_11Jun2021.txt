@@ -87,3 +87,95 @@ Let us create a client app:		in a new eclipse workspace running parallely
 	6) Now check localhost:8761
 
 		are you able to see your client app in this console?
+
+
+======================================================================================
+How can we access a rest api from our rest controller?
+	what is rest api?
+		a restful web service that provides service in the form of URL
+		USING http methods
+			GET
+			POST
+			PUT
+			DELETE
+			PATCH
+
+	in our spring mvc project,
+		<form method="GET"
+		<form method="POST"
+
+			both are fine. but what about PUT, DELETE, PATCH?????
+			
+	what can we do?
+		we can use Feign client and access these api methods using an interface
+		and that interface can be autowired in our REST controller
+
+		REST controller provides access using GET / POST
+
+	Lets us access a fake rest api (fake means somebody else have created rest api for learning purpose)
+
+how can we access this rest api from our spring controller
+	so our application is going to become a Feign client now
+
+
+1) create a spring boot application
+	while creating itself add dependencies
+		i) spring web
+		ii) feign
+
+2) go to the application class (which has main method)
+		there is an annotation		@SpringBootApplication		this is configuration 
+		add annotation
+			@EnableFeignClients
+
+3) create an interface
+package com.example.demo;
+
+import java.util.List;
+
+import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+
+@FeignClient(value = "instantwebtools-api", url = "https://api.instantwebtools.net/v1/")
+public interface ApiClient {
+	@GetMapping("/airlines")
+	List<Airline> getAllAirlines();
+	
+	@GetMapping("/airlines/{id}")
+	Airline findAirlineById(@PathVariable("id") long id);
+}
+
+4) autowire this interface in the rest controller
+package com.example.demo;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import lombok.RequiredArgsConstructor;
+
+@RestController
+@RequiredArgsConstructor
+public class AirlineController {
+
+	@Autowired
+	private ApiClient apiClient;
+	
+	@GetMapping("/airlines")
+	    public ResponseEntity readAirlineData (@RequestParam(required = false) Long airlineId) {
+	        if (airlineId == null) {
+	            return ResponseEntity.ok(apiClient.getAllAirlines());
+	        }
+	        return ResponseEntity.ok(apiClient.findAirlineById(airlineId));
+	    }	
+	
+}
+
+
+
+
+
+https://javatodev.com/how-to-use-feign-client-in-spring-boot/
