@@ -1,0 +1,270 @@
+-----------------
+HTML
+CSS
+Js
+
+servlet jsp
+----------------
+explain about project
+	spring jpa
+	spring boot
+	collections
+	jdbc
+	basic questions in curriculum
+
+	adv
+
+introduction
+diff between string and string buffer
+diff betwen	hashmap and treemap
+
+hashset
+
+interface
+inheritance
+
+spring boot annotations		6 annotations
+
+controller	vs	Rest controller
+	difference between 
+	this is used in MVC project
+		redirection		return url		
+		form submission to the controller
+
+		REST CONTROLLER
+			does not support session
+			each method is independent conversation
+
+			each method is mapped to an URL	
+
+			each functionality is provided using URL as a micro service
+
+		in rest controller	
+			return "hello";			means hello is a value returned
+		in controller
+			return "hello";			means hello is the url		hello.jsp
+
+		a rest controller is only meant to produce output or do some task. Nothing related to VIEW
+
+
+	how a lob is mapped using JPA repository
+
+
+
+	@Lob
+	private byte[] pic;
+
+
+
+join types in sql
+normalization
+
+reverse the string
+
+sort a string using map
+
+maven
+sonar
+login
+
+annotation
+
+dependency injection
+
+ioc container
+
+orm
+
+
+mockito
+
+@JsonIgnore		
+
+we had a class
+class User
+{
+	username
+	password
+	......
+	@JsonIgnore		this will ignore this field in the json object created
+	profilePicture		byte[]					longblob in mysql
+}
+
+when a rest api returns list of users			[{"username"="rama",....},{},{}]
+
+---------------------------------------------------
+
+core java:
+------------
+collections
+multithreading and io
+jdbc
+
+-------------------------------------
+maven
+
+autowired annotation
+
+dependency injection
+
+amazon cloud
+
+	we created a spring boot application	(rest controller) connects with the database using JPA repository
+		GET		retrieve all Entities
+		GET		retrieve an enityt by id
+		POST		add
+		PUT		modify
+		DELETE		delete
+
+
+	we deployed this application in AWS	Elastic Beanstalk container
+	
+	we were able to access the urls from anywhere
+
+	how this app is able to connect with mysql db?
+
+	we created mysql db in aws using 	RDS		Relational Database Service
+
+	i) AWS Elastic Beanstalk 		application
+	ii) RDS					database		and we configured so that it allows 
+								public access
+								all traffic
+								any region
+
+	a rest controller do not have UI		like JSP
+
+	Feign client
+		Spring Cloud
+			Eureka server and client
+			Feign client
+			Ribbon		(we did not have in our syllabus)
+
+	what is the use of Feign client?
+		allows a spring boot application to access another spring boot application
+
+		our spring boot rest api is deployed in aws beanstalk
+		another spring boot mvc project will access that aws app using "Feign client"
+
+		this project is deployed in docker container 	(docker hub)
+		so that any client can run this (without even having java in their computer)
+
+		docker run -p 8080:8080 jagindia/mymvc
+
+
+	
+
+
+
+
+
+What is set?			collection of distinct elements
+				do not allow duplicates		means it will reject not exception
+What is abstract class?
+				is incomplete. means some methods are implemented some are left to sub classes to implement. Meant to be a super class. cannot be instantiated.
+What is static block?
+				block executed even before main method. only once
+Method overloading and method overriding				
+Multithreading
+Final keyword
+What is the use of throw
+What is throwable
+What is dependency injection
+What is the use of CSS
+What is JavaScript
+What is advantages of spring boot
+Annotations
+What is the use of join
+What is types of join
+What is primary key
+What is unique key
+Commit and rollback
+What is the use of junit
+What is the use of maven
+
+@Test. This annotation denotes that a method is a test method. ...
+@ParameterizedTest. Parameterized tests make it possible to run a test multiple times with different arguments. ...
+		you can supply values (test cases) as an array list
+@DisplayName. ...
+@BeforeEach. ...
+@AfterEach. ...
+@BeforeAll. ...
+@AfterAll. ...
+@Tag.
+
+What is spring rest services
+What is flow of spring boot
+What is use of logging
+What is sonar cube
+What is jpa
+What is association mapping in jpa 
+What is repository
+What is spring cloud
+Deploy models
+Different types of cloud
+Benefits of cloud computing
+
+
+
+
+Java 8 features
+What is collections in Java
+Difference between hashmap and hashtable
+What is multithreading in java
+What is the use of method overloading and method overriding
+
+What is exception and errors in java
+What is use of interface and abstract class
+What is use of dependency injection
+What is advantages of spring boot
+Flow of spring boot application
+What is the use of style sheet in css
+What are the tags available in html
+What is the purpose of JavaScript
+What is join and types 
+What is the primary, unique and foreign key
+What is the use of rollback and commit
+What is the junit
+How many test u can write for method
+How test cases written minimum
+What is the use of maven
+What is the use of spring rest api
+What is the purpose of logging
+How u making the code quality
+What is jpa
+Association mapping in jpa
+What is advantages of spring cloud
+What is advantages of cloud computing
+What are the deployment models available in cloud computing
+
+
+
+
+spring vs spring boot
+	spring boot encourages convention over configuration
+
+	in spring mvc, component scan base package must be specified.
+	in spring boot, if we create controller classes under base package, we need not specify
+		convention
+
+	boot has starter dependencies
+		group of dependencies and easy to manage
+
+		starter =	spring core, context, context support, etc
+
+	boot has internal tomcat server
+
+	we do not need to download tomcat server at all
+
+
+configuration
+	XML
+		component scan base package
+		<bean>
+	annotations
+		@ComponentScan(
+		@Bean		or @Component
+
+			@Bean is used only for methods
+			@Component is used on the class	(mostly we use pre defined class so we cannot use this)
+
+		
