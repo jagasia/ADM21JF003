@@ -1,0 +1,192 @@
+npm install -g yaml-lint
+
+
+
+install kubectl. (paste the following in cmd prompt of windows)
+	curl -LO https://dl.k8s.io/release/v1.21.0/bin/windows/amd64/kubectl.exe
+
+install minikube
+-----------------
+To check if virtualization is supported on Windows 8 and above, run the following command on your Windows terminal or command prompt.
+
+systeminfo
+If you see the following output, virtualization is supported on Windows.
+
+Hyper-V Requirements:     VM Monitor Mode Extensions: Yes
+                          Virtualization Enabled In Firmware: Yes
+                          Second Level Address Translation: Yes
+                          Data Execution Prevention Available: Yes
+If you see the following output, your system already has a Hypervisor installed and you can skip the next step.
+
+Hyper-V Requirements:     A hypervisor has been detected. Features required for Hyper-V will not be displayed.
+
+
+To install Minikube in windows
+	choco install minikube
+
+
+1) minikube start
+
+2) kubectl get nodes
+
+3) create "deployment.yml" file adjacent to Dockerfile
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  # Unique key of the Deployment instance
+  name: deployment-example
+#  lables:
+#   app: jag-mvc-1
+spec:
+  # 3 Pods should exist at all times.
+  replicas: 3
+  selector:
+    matchLabels:
+     app: jag-mvc-1
+  template:
+    metadata:
+      labels:
+        # Apply this label to pods and default
+        # the Deployment label selector to this value
+        app: jag-mvc-1
+    spec:
+      containers:
+      - name: dfa5586cc9c0
+        # Run this image
+        image: jagindia/mymvc
+        ports:
+        - containerPort: 8080
+
+
+
+4) kubectl create -f deployment.yml
+
+5) kubectl get deploy,po
+
+6) minikube ssh
+	docker ps
+
+
+
+docker image ls
+	list all the images present in our system
+docker rmi -f imagename
+	remove an image even if it is running in container
+docker ps
+docker container ls
+	list all the containers running in our system
+
+docker stop <<containerid>>
+
+
+docker run -p 8080:8080 jagindia/mymvc
+	to run an image that becomes container
+
+
+
+Lambda
+	java 8
+	when do you use lambda?
+		when we want to implement a functional interface
+
+	ex:
+		there is an interface with 3 abstract method.
+		How do you implement this interface using lambda?
+			IT IS NOT POSSIBLE
+
+	What is meant by functional interface?
+		an interface that has only 1 abstract method
+
+Lambda can be used only if we want to provide implementation of functional interface.
+
+
+ex:
+	interface Person
+	{
+		void speak();				//this is an abstract method
+	}
+
+	the above interface is a functional interface
+
+	how do we implement this?
+		i) by a class that implements that interface
+		ii) by providing anonymous inner type
+		iii) lambda
+
+
+
+
+
+	interface Person
+	{
+		void speak();				//this is an abstract method
+	}
+
+	class Student implements Person
+	{
+		void speak(){			//should be public only
+			System.out.println("student speaks");
+		}
+		public static void main(String []args)
+		{
+			Student rama=new Student();
+			rama.speak();			//what will be output?
+		}
+	}
+
+a) student speaks
+b) compilation error
+c) runtime error
+
+
+every method or data member declared inside an interface is PUBLIC by default
+
+
+Comparator is a functional interface
+	it has only 1 method			compare()
+
+
+Predicate is a functional interface
+
+1) ClassPathXMLApplicationContext
+2) AnnotationConfigApplicationContext
+3) FileSystemXmlApplicationContext
+
+
+
+
+
+1) ClassPathXMLApplicationContext
+	when we configure using xml file
+		<bean id= class=
+2) AnnotationConfigApplicationContext
+	when we configure using java annotations
+		@Bean
+		public .....
+
+	@Component
+	@ComponentScan
+
+
+ClassPathXMLApplicationContext ctx=new ClassPathXMLApplicationContext("applicationContext.xml");
+AnnotationConfigApplicationContext ctx=new AnnotationConfigApplicationContext(ApplicationConfig.class);
+
+
+these were used in spring core, aop programs
+
+in spring boot,
+	we dont do this because of 
+
+@SpringBootApplication
+	here auto configuration is enabled
+
+when we do not follow conventions,
+	we use
+	@Configuration
+	@ComponentScan
+	
+
+base package is the package that contains 
+	Application.java
+		main method

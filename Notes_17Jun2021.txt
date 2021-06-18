@@ -1,0 +1,137 @@
+CID
+	Continuous Integration
+
+CD
+	Continuous Delivery			(Deployment)
+
+
+
+yesterday, we deployed a springboot app in aws elastic beanstalk.
+	today, we continue to work on this project in spring tool suite.
+	i am adding new entities, new repo, new controller
+	the project is growing.
+
+	In agile model, we do project in iteration. 
+
+	every time, how we are going to update the project in the elastic beanstalk?
+
+	this is where CI has a role to play.
+		Continuous Integration
+
+	Imagine, if we give developers a liberty to push their projects into GitHub.
+		just push your project in git. it will be updated in aws automatically.
+
+	Source		project is pushed into git hub 
+	Build		jar file is tested for errors. db connectivity is tested
+	Deploy		depolyment in aws beanstalk
+
+
+How? to do CI in aws?
+	1) in aws, you have to navigate to
+		Code Pipeline
+
+		create a pipeline	
+			and authorize our git account and repository
+			map to a beanstalk application
+
+		source			successful if git repo is accessible
+		build			building  jar files
+		deploy			the project (jar) is deployed in aws 
+
+
+
+Google	GCP			
+Spring cloud
+microsoft Azure
+Amazon aws
+	Elastic beanstalk
+	RDS
+	Code Pipeline		CI
+	ECS
+	EKS			kubernates
+	
+
+Need for spring security
+	it is very useful in REST api
+
+		because, we cannot remember the identity of user across 2 method calls in rest api
+
+
+in @Controller
+	we can do session management
+		in one of the methods, he provide user name and password. if login is success, then
+		HttpSession session.setAttri...		add his user object in session.
+
+		in other methods, we can use that session var
+
+
+
+
+
+
+OAuth2
+	Open Authentication			Single Sign on	SSO		
+
+	i have a gmail account. 		i can use this to login to your application
+
+
+if you try to access any url, first it will prompt you to login
+	if you have gmail account, you can login
+
+		gmail
+		github
+		facebook
+
+i am logging into udemy.com using facebook account
+
+how this is possible?
+	in my spring boot application, i want to allow users to login using open authentication
+		OAuth2
+
+
+JWT
+	suppose i directly access an url of your rest api, 
+	a login page comes in front
+
+	but if i access your url from post man?		how will a login page? no. but still i want to access your page, so i can provide JSON web token in the authorization
+
+
+
+security auto configuration				this is the reason for authentication
+
+
+
+Restful web services
+	jax rs
+
+f/w
+	jersey
+		the content negotiation is not automatic
+		we have to specify
+
+			consumes			json		xml		text
+			produces			json		xml		text
+
+			return new Employee();			///not sophisticated to understand that it should become json
+
+			return new ResponseEntity
+				status code, headers, data
+
+	spring
+
+allow us to create restful webservices
+
+
+spring boot 
+	Rest Controller
+			new Employee();				
+
+
+the content negotiation
+	if you return a data
+		String
+		Employee
+		
+
+	preference
+		text, json, xml (explicitly mention that it produces XML)
