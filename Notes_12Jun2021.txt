@@ -1,0 +1,93 @@
+Lets deploy our spring boot application in AWS
+
+
+in personal account
+	aws will ask MFA		Multi Factor Authentication
+
+	you are familiar with MFA	how?		
+	in cognizant email, you enter username, password, MFA
+
+
+but in cognizant account, we just need to enter 
+	12 digit
+	username
+	password
+
+we deploy our spring boot app in aws	only in "Elastic Beanstalk"
+
+Lets create a spring boot application now
+
+Error:
+ No compiler is provided in this environment. Perhaps you are running on a JRE rather than a JDK?
+Fix:
+	eclipse -> Window -> Preferences -> Java -JRE -> choose JDK instead of JRE
+
+
+	Maven build 		clean install
+
+	in projects target folder, we could see a jar file created now.
+
+This jar file will be deployed in AWS
+
+	in aws,
+		go to elastic beanstalk.
+		create an application
+
+		choose platform as "Java" while creating environment
+
+
+IMPORTANT:
+	go to application.properties
+	server.port=5000
+
+5000 should be the preferred port for apache tomcat in AWS
+
+
+in aws portal
+	go to RDS
+		Relational Database Service
+
+https://aws.amazon.com/getting-started/hands-on/create-mysql-db/
+
+
+end point:		jag.cljtedwklhul.ap-south-1.rds.amazonaws.com
+port:			3306
+database name:		jag
+username:		root
+password:		rootuser
+
+
+
+
+
+CREATE TABLE branch
+(
+	bid char(6) PRIMARY KEY,
+    bname varchar(20),
+    bcity varchar(20)
+);
+
+INSERT INTO branch VALUES('B00001','Asaf ali road','Delhi');
+INSERT INTO branch VALUES('B00002','New delhi main branch','Delhi');
+INSERT INTO branch VALUES('B00003','Delhi cantt','Delhi');
+INSERT INTO branch VALUES('B00004','Jasola','Delhi');
+INSERT INTO branch VALUES('B00005','Mahim','Mumbai');
+INSERT INTO branch VALUES('B00006','Vile parle','Mumbai');
+INSERT INTO branch VALUES('B00007','Mandvi','Mumbai');
+INSERT INTO branch VALUES('B00008','Jadavpur','Kolkata');
+INSERT INTO branch VALUES('B00009','Kodambakkam','Chennai');
+
+
+
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
+		</dependency>
+
+<!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
+<dependency>
+    <groupId>mysql</groupId>
+    <artifactId>mysql-connector-java</artifactId>
+    <version>8.0.25</version>
+</dependency>

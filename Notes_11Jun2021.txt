@@ -123,6 +123,13 @@ how can we access this rest api from our spring controller
 		i) spring web
 		ii) feign
 
+<dependency>
+    <groupId>org.springframework.cloud</groupId>
+    <artifactId>spring-cloud-starter-openfeign</artifactId>
+    <version>2.0.1.RELEASE</version>
+</dependency>
+
+
 2) go to the application class (which has main method)
 		there is an annotation		@SpringBootApplication		this is configuration 
 		add annotation

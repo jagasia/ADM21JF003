@@ -1,0 +1,140 @@
+1) we will complete the aws beanstalk application connectivity with RDS
+2) we will deploy spring boot application in Docker hub	
+	earlier we learnt to run an application which is already deployed in docker hub (in28min)
+3) learn to use Kubernates
+
+
+
+why last time our application was not able to connect with the RDS database?
+	the database was by default configured not to allow access from anywhere
+	public accessibility
+		is only for sql client tools		mysql workbench can access RDS
+		it does not mean applications can access from anywhere
+
+		all traffic
+		anywhere
+
+	these options are specified in the security group
+		choose the active security group
+			modify:
+			type=all traffic (not all TCP)
+			sourc=any where	 (not custom)
+
+i have created a database
+	inside the env
+
+what is environment?
+	suppose, we run a project in port 5000
+	can we run multiple applications in 5000?	
+	not possible.
+		but by running each application in separate env, it is possible
+
+every application runs in a separate environment
+
+in that environment:
+	configuration
+		database
+			there, we need to create and allow access
+			allow beanstalk applications to connect
+
+
+
+
+
+How we are going to implement these concepts in our project?
+1) 	REST API			port 5000			@RestController
+		this can be created using Spring boot Rest controller
+			GET		all entity
+			GET		by Id
+			POST		to add
+			PUT		to modify
+			DELETE		to delete
+
+	we can deploy this application (jar) as a "Beanstalk" application in aws with database connectivity using RDS
+
+2) WE can create another project
+	Spring boot MVC project		(no database coding in MVC project. that is accessed from aws rest api)
+		this will contain
+			jsp 	for view
+			controller			not RestController		@Controller
+			GET and POST only with submit button		multiple submit buttons using "params"
+
+	this mvc project can access REST API using 		"Feign client"
+			definitely we can access all mappings from controller methods
+
+3) this mvc project can be deployed in Docker / Kubernates
+
+		so that any client can just run our project using docker
+
+we take one entity as example 		"Branch"
+	i will give a demo of how this is done for example Branch
+---------------------------------------------------------------------------------------
+Demo 2:
+	Lets deploy our spring boot application in docker
+
+	i am going to create an MVC project except the database access part. (bcos that is already there in aws)
+
+
+
+we have created a spring boot app 
+	with a controller
+		that returns response body "Hello world" for url "/"
+
+	go to pom.xml
+		add final name inside the <build> 		outside <plugins>
+
+an application can be deployed in docker if that project has
+	"Dockerfile"
+
+	NO EXTENSTION for this file
+	case sensitive		f is small in "Dockerfile"
+
+	inside Dockerfile, provide these info
+		FROM java:8
+		EXPOSE 8080
+		ADD target/jag-mvc-1.jar jag-mvc-1.jar 
+		ENTRYPOINT ["java","-jar","jag-mvc-1.jar"]
+
+	remember, copy the jar file name from target folder. if jar is not found, build with goals, clean install
+
+
+NOW we have created a project with Dockerfile mentioning jar file name correctly and generated the jar again
+
+lets deploy this jar in Docker hub	
+	do you have an account in dockerhub portal?
+		if not created one by sign up
+	login to docker hub
+
+	Once you login to dockerhub.com
+		you can see your repositories.
+		create a new repository now
+		"mymvc"
+
+	open cmd
+		go to the location where your "Dockerfile" is present
+		
+	docker login
+			or 		docker login -u username -p password
+			or 		docker login -u username		while entering it will as password
+										this is better
+	after login, we create a docker image for the jar we generated now
+	1) create image
+		docker build -t jag-mvc-1 .
+		now check docker desktop that image is created now. You can also check this in cmd prompt
+		docker images
+	2) create tag for that image
+		docker tag jag-mvc-1 jagindia/mymvc
+	3) push tag to the docker hub
+		docker push jagindia/mymvc
+
+
+
+---------------------
+Lets modify our MVC project so that it access the feign client from 
+	http://third-env.eba-mt8mpdcn.ap-south-1.elasticbeanstalk.com/branch
+
+<dependency>
+    <groupId>org.springframework.cloud</groupId>
+    <artifactId>spring-cloud-starter-openfeign</artifactId>
+    <version>2.0.1.RELEASE</version>
+</dependency>
