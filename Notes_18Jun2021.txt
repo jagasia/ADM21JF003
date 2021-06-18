@@ -1,3 +1,44 @@
+What is docker compose? where did you use?
+	used to deploy or run multiple images (in multiple containers only.)
+	when one image depends on another image.
+		ex:	spring boot app depend on mysql image
+		ex:	MSK	Kafka. 	both producer and consumer run at a time
+
+what is docker-compose.yml?
+	this configuration file specifies the services and the port, dependencies etc
+	we can keep this file anywhere. and run using 
+		docker-compose up
+	before running this command, check the images availability locally 
+		docker image ls
+	(if the image is present in docker hub, we dont need to have it locally)
+
+	after running this command, we could check the containers created by this cmd
+		docker ps		or 		docker container ls
+To stop running container,
+		docker stop <<containerid>>
+
+docker-compose	yml
+	this file is used to configure multiple services at a time
+docker-compose up
+	to run the services defined in yml file
+defining port
+	3306:3306
+password definition
+	MYSQL_PASSWORD		for non root users
+	MYSQL_ROOT_PASSWORD	for root user
+
+executing mysql client on the mysql server container
+	docker run
+		docker exec -it mysql1 mysql -uroot -p	
+
+
+
+deploying application using docker
+	1) create a repository in the docker hub
+	2) build, tag, push
+
+
+
 npm install -g yaml-lint
 
 
